@@ -61,7 +61,12 @@ FILE_RCSID("@(#)$File: magic.c,v 1.115 2021/09/20 17:45:41 christos Exp $")
 #endif
 
 #ifdef __APPLE__
-#include "get_compat.h"
+    #include <TargetConditionals.h>
+    #if TARGET_OS_OSX
+        #include "get_compat.h"
+    #else
+        #define COMPAT_MODE(func, mode) 1
+    #endif
 #else
 #define COMPAT_MODE(func, mode) 1
 #endif
